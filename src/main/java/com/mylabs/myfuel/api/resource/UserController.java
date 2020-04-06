@@ -1,6 +1,8 @@
 package com.mylabs.myfuel.api.resource;
 
 import com.mylabs.myfuel.api.entity.dto.UserDTO;
+import com.mylabs.myfuel.api.entity.dto.UserResDTO;
+import com.mylabs.myfuel.api.entity.enuns.RoleEnum;
 import com.mylabs.myfuel.api.entity.model.User;
 import com.mylabs.myfuel.api.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -27,11 +29,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> save(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<UserResDTO> save(@RequestBody @Valid UserDTO userDTO) {
 
-        User user = service.save(modelMapper.map(userDTO, User.class));
+        User user = modelMapper.map(userDTO, User.class);
 
-        UserDTO response = modelMapper.map(user, UserDTO.class);
+        user = service.save(user);
+
+        UserResDTO response = modelMapper.map(user, UserResDTO.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 

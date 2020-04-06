@@ -21,7 +21,7 @@ public class UserDTO {
     private String name;
 
     @NotEmpty(message = "O email deve ser informado")
-    @Email(message = "Informe um email valido")
+    @Email(message = "Informe um email válido")
     private String email;
 
     @NotEmpty(message = "Informe uma senha")

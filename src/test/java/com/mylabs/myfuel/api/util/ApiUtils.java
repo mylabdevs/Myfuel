@@ -16,6 +16,10 @@ public class ApiUtils {
     }
 
     public static User createNewUser() {
+        return User.builder().email("user@teste.com.br").password("123456").name("userTeste").role(RoleEnum.ROLE_USER).build();
+    }
+
+    public static User createUser() {
         return User.builder().id(1L).email("user@teste.com.br").password("123456").name("userTeste").role(RoleEnum.ROLE_USER).build();
     }
 
