@@ -64,8 +64,7 @@ public class UsuarioControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").value(userSave.getId()))
                 .andExpect(jsonPath("name").value(userSave.getName()))
-                .andExpect(jsonPath("email").value(userSave.getEmail()))
-                .andExpect(jsonPath("role").value(userSave.getRole().toString()));
+                .andExpect(jsonPath("email").value(userSave.getEmail()));
     }
 
     @Test
@@ -104,7 +103,7 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("erros[0]").value("Informe um email valido"));
+                .andExpect(jsonPath("erros[0]").value("Informe um email válido"));
 
     }
 
