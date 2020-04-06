@@ -33,7 +33,7 @@ public class UserController {
 
         User user = modelMapper.map(userDTO, User.class);
 
-        user = service.save(user);
+        service.save(user);
 
         UserResDTO response = modelMapper.map(user, UserResDTO.class);
 
