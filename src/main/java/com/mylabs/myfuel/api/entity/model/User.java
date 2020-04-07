@@ -31,7 +31,7 @@ public class User {
     @Size(min = 6 , max = 12, message = "A senha deve ter entre ${min} e no máximo ${max} caracteres")
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Email(message = "Informe email válido")
     private String email;
 
