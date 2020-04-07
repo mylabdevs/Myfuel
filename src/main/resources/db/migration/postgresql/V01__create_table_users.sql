@@ -4,5 +4,6 @@ CREATE TABLE users (
     password varchar,
     email varchar(100),
     role varchar(40),
-    primary key (id)
+    primary key (id),
+    CONSTRAINT UC_Email UNIQUE (email)
 );
