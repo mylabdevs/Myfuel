@@ -1,9 +1,8 @@
 package com.mylabs.myfuel.api.resource;
 
-import com.mylabs.myfuel.api.entity.dto.UserDTO;
-import com.mylabs.myfuel.api.entity.model.User;
-import com.mylabs.myfuel.api.service.UserService;
-import com.mylabs.myfuel.api.util.ApiUtils;
+import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.service.UserService;
+import com.mylabs.myfuel.util.ApiUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,9 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -43,13 +42,11 @@ public class UsuarioControllerTest {
     public void createNewUsuario() throws Exception {
 
         // Cenário
-        UserDTO userDTO = ApiUtils.createNewUserDTO();
-
-        User userSave = ApiUtils.createNewUser();
+        User user = ApiUtils.createNewUser();
 
         String json = ApiUtils.userDTOToJson();
 
-        BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(userSave);
+        BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(user);
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -62,9 +59,9 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("id").value(userSave.getId()))
-                .andExpect(jsonPath("name").value(userSave.getName()))
-                .andExpect(jsonPath("email").value(userSave.getEmail()));
+                .andExpect(jsonPath("id").value(user.getId()))
+                .andExpect(jsonPath("name").value(user.getName()))
+                .andExpect(jsonPath("email").value(user.getEmail()));
     }
 
     @Test
@@ -83,7 +80,8 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("erros", hasSize(3)));
+                .andExpect(jsonPath("campos", hasSize(3)))
+                .andExpect(jsonPath("titulo").value("Um ou mais campos inválidos"));
 
         }
 
@@ -103,7 +101,8 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("erros[0]").value("Informe um email válido"));
+                .andExpect(jsonPath("campos[0].nome").value("email"))
+                .andExpect(jsonPath("campos[0].mensagem").value("deve ser um e-mail válido"));
 
     }
 
@@ -123,7 +122,8 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("erros[0]").value("A senha deve ter entre 6 e no máximo 12 caracteres"));
+                .andExpect(jsonPath("campos[0].nome").value("password"))
+                .andExpect(jsonPath("campos[0].mensagem").value("deve ter no mínimo 6 e no máximo 12 caracteres"));
 
     }
 }

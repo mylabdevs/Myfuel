@@ -1,9 +1,9 @@
-package com.mylabs.myfuel.api.service;
+package com.mylabs.myfuel.domain.service;
 
-import com.mylabs.myfuel.api.entity.model.User;
-import com.mylabs.myfuel.api.repository.UserRepository;
-import com.mylabs.myfuel.api.service.impl.UserServiceImpl;
-import com.mylabs.myfuel.api.util.ApiUtils;
+import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.repository.UserRepository;
+import com.mylabs.myfuel.infraestrutura.service.CrudUserService;
+import com.mylabs.myfuel.util.ApiUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setup(){
-        this.service = new UserServiceImpl(repository);
+        this.service = new CrudUserService(repository);
     }
 
     @Test

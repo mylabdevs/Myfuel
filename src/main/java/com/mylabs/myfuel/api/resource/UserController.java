@@ -1,10 +1,9 @@
 package com.mylabs.myfuel.api.resource;
 
-import com.mylabs.myfuel.api.entity.dto.UserDTO;
-import com.mylabs.myfuel.api.entity.dto.UserResDTO;
-import com.mylabs.myfuel.api.entity.enuns.RoleEnum;
-import com.mylabs.myfuel.api.entity.model.User;
-import com.mylabs.myfuel.api.service.UserService;
+import com.mylabs.myfuel.domain.dto.user.UserModel;
+import com.mylabs.myfuel.domain.dto.user.UserInput;
+import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,15 +28,19 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResDTO> save(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<UserModel> save(@RequestBody @Valid UserInput userInput) {
 
-        User user = modelMapper.map(userDTO, User.class);
+        User user = toEntity(userInput);
 
-        service.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(toModel(service.save(user)));
 
-        UserResDTO response = modelMapper.map(user, UserResDTO.class);
+    }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    private UserModel toModel(User user) {
+        return modelMapper.map(user, UserModel.class);
+    }
 
+    private User toEntity(UserInput userInput) {
+        return modelMapper.map(userInput, User.class);
     }
 }
