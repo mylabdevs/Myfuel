@@ -4,6 +4,8 @@ import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.dto.user.UserInput;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Api(value = "User Rotas", tags = {"user"})
 @RestController
 @RequestMapping("api/user")
 public class UserController {
@@ -27,6 +30,7 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
+    @ApiOperation(value = "Salvar usuário")
     @PostMapping
     public ResponseEntity<UserModel> save(@RequestBody @Valid UserInput userInput) {
 
