@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -61,7 +63,8 @@ public class UsuarioControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").value(user.getId()))
                 .andExpect(jsonPath("name").value(user.getName()))
-                .andExpect(jsonPath("email").value(user.getEmail()));
+                .andExpect(jsonPath("email").value(user.getEmail()))
+                .andExpect(jsonPath("dataCadastro").value(LocalDate.now().toString()));
     }
 
     @Test
