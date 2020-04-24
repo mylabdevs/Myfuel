@@ -7,6 +7,8 @@ import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.enuns.RoleEnum;
 import com.mylabs.myfuel.domain.entity.User;
 
+import java.time.LocalDate;
+
 public class ApiUtils {
 
     public static UserModel createNewUserModel() {
@@ -38,6 +40,6 @@ public class ApiUtils {
     }
 
     public static User createNewUser() {
-        return User.builder().id(1L).email("user@teste.com.br").name("userTeste").build();
+        return User.builder().id(1L).email("user@teste.com.br").name("userTeste").dataCadastro(LocalDate.now()).build();
     }
 }
