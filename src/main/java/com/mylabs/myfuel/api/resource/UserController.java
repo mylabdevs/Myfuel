@@ -32,7 +32,7 @@ public class UserController {
 
     @ApiOperation(value = "Salvar usuário")
     @PostMapping
-    public ResponseEntity<UserModel> save(@RequestBody @Valid UserInput userInput) {
+    public ResponseEntity<UserModel> save(@RequestBody @Valid  UserInput userInput) {
 
         User user = toEntity(userInput);
 
