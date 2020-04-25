@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -31,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UsuarioControllerTest {
 
-    static String USER_URL = "/api/user";
+    static String USER_URL = "/user";
 
     @Autowired
     MockMvc mvc;
@@ -64,8 +65,9 @@ public class UsuarioControllerTest {
                 .andExpect(jsonPath("id").value(user.getId()))
                 .andExpect(jsonPath("name").value(user.getName()))
                 .andExpect(jsonPath("email").value(user.getEmail()))
-                .andExpect(jsonPath("dataCadastro").value(LocalDate.now().toString()));
+                .andExpect(jsonPath("dataCadastro").value(getDateNow()));
     }
+
 
     @Test
     @DisplayName("Deve lançar erro de validação quando não houver dados suficiente para criar usuario")
@@ -86,7 +88,7 @@ public class UsuarioControllerTest {
                 .andExpect(jsonPath("campos", hasSize(3)))
                 .andExpect(jsonPath("titulo").value("Um ou mais campos inválidos"));
 
-        }
+    }
 
     @Test
     @DisplayName("Deve lançar erro de validação quando não informar email invalido")
@@ -128,5 +130,9 @@ public class UsuarioControllerTest {
                 .andExpect(jsonPath("campos[0].nome").value("password"))
                 .andExpect(jsonPath("campos[0].mensagem").value("deve ter no mínimo 6 e no máximo 12 caracteres"));
 
+    }
+
+    private String getDateNow() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 }
