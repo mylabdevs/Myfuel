@@ -1,4 +1,4 @@
-package com.mylabs.myfuel.core;
+package com.mylabs.myfuel.api.resource.core;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,6 @@
 package com.mylabs.myfuel.domain.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class UserModel {
 
     private String email;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate dataCadastro;
 }
