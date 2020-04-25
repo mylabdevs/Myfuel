@@ -9,13 +9,13 @@ import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CrudVeiculoServcice implements VeiculoService {
+public class CrudVeiculoService implements VeiculoService {
 
     private final VeiculoRepository veiculoRepository;
 
     private final UserRepository userRepository;
 
-    public CrudVeiculoServcice(VeiculoRepository veiculoRepository, UserRepository userRepository) {
+    public CrudVeiculoService(VeiculoRepository veiculoRepository, UserRepository userRepository) {
         this.veiculoRepository = veiculoRepository;
         this.userRepository = userRepository;
     }

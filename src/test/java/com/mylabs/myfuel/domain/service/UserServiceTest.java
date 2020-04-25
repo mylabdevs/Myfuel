@@ -3,7 +3,7 @@ package com.mylabs.myfuel.domain.service;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.repository.UserRepository;
 import com.mylabs.myfuel.infraestrutura.service.CrudUserService;
-import com.mylabs.myfuel.util.ApiUtils;
+import com.mylabs.myfuel.builds.UserBuild;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,10 +33,10 @@ public class UserServiceTest {
     @DisplayName("Deve salvar um usuario")
     public void saveUsertest(){
         // Cenário
-        User user = ApiUtils.createNewUser();
+        User user = UserBuild.createNewUser();
 
         Mockito.when(repository.save(Mockito.any(User.class)))
-                .thenReturn(ApiUtils.createUser());
+                .thenReturn(UserBuild.createUser());
 
         // Execução
         User saveUser = service.save(user);

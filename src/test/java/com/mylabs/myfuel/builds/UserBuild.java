@@ -1,4 +1,4 @@
-package com.mylabs.myfuel.util;
+package com.mylabs.myfuel.builds;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +9,7 @@ import com.mylabs.myfuel.domain.entity.User;
 
 import java.time.LocalDate;
 
-public class ApiUtils {
+public class UserBuild {
 
     public static UserModel createNewUserModel() {
         return UserModel.builder().id(1l).email("user@teste.com.br").name("userTeste").id(1L).build();
