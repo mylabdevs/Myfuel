@@ -30,11 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest
+@WebMvcTest(controllers = UserController.class)
 @AutoConfigureMockMvc
 public class UsuarioControllerTest {
 
-    static String USER_URL = "/user";
+    static String USER_URL = "/users";
 
     @Autowired
     MockMvc mvc;

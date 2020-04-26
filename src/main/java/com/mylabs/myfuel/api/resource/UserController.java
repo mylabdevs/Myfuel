@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @Api(value = "User Rotas", tags = {"user"})
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService service;

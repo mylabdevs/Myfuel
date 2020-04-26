@@ -5,6 +5,7 @@ import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.service.VeiculoService;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("veiculo")
-public class VeiculoController {
+@RequestMapping("veiculos")
+@RequiredArgsConstructor
+public class  VeiculoController {
 
     private final VeiculoService veiculoService;
 
     private final ModelMapper modelMapper;
-
-    public VeiculoController(VeiculoService veiculoService, ModelMapper modelMapper) {
-        this.veiculoService = veiculoService;
-        this.modelMapper = modelMapper;
-    }
-
 
     @ApiOperation(value = "Salvar veiculo")
     @PostMapping

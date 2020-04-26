@@ -25,7 +25,6 @@ public class CrudVeiculoService implements VeiculoService {
         User user = userRepository.findById(veiculo.getUser().getId())
                 .orElseThrow(() -> new NegocioException("Usuario não encontrado"));
         veiculo.setUser(user);
-        Veiculo save = veiculoRepository.save(veiculo);
-        return save;
+        return veiculoRepository.save(veiculo);
     }
 }
