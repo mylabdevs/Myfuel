@@ -1,8 +1,10 @@
 package com.mylabs.myfuel.api.resource;
 
+import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.service.UserService;
-import com.mylabs.myfuel.util.ApiUtils;
+import com.mylabs.myfuel.builds.UserBuild;
+import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -28,11 +31,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest
+@WebMvcTest(controllers = UserController.class)
 @AutoConfigureMockMvc
 public class UsuarioControllerTest {
 
-    static String USER_URL = "/user";
+    static String USER_URL = "/users";
 
     @Autowired
     MockMvc mvc;
@@ -45,9 +48,9 @@ public class UsuarioControllerTest {
     public void createNewUsuario() throws Exception {
 
         // Cenário
-        User user = ApiUtils.createNewUser();
+        User user = UserBuild.createNewUser();
 
-        String json = ApiUtils.userDTOToJson();
+        String json = UserBuild.userDTOToJson();
 
         BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(user);
 
@@ -72,7 +75,7 @@ public class UsuarioControllerTest {
     @Test
     @DisplayName("Deve lançar erro de validação quando não houver dados suficiente para criar usuario")
     public void createUserInvalidTest() throws Exception {
-        String json = ApiUtils.userDTOInvalidJson();
+        String json = UserBuild.userDTOInvalidJson();
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -93,7 +96,7 @@ public class UsuarioControllerTest {
     @Test
     @DisplayName("Deve lançar erro de validação quando não informar email invalido")
     public void createUserEmailInvalidTest() throws Exception {
-        String json = ApiUtils.userDTOEmailInvalidJson();
+        String json = UserBuild.userDTOEmailInvalidJson();
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -114,7 +117,7 @@ public class UsuarioControllerTest {
     @Test
     @DisplayName("Deve lançar erro de validação quando não informar senha invalido")
     public void createUserPassworInvalidTest() throws Exception {
-        String json = ApiUtils.userDTOPasswordlInvalidJson();
+        String json = UserBuild.userDTOPasswordlInvalidJson();
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
