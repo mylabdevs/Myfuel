@@ -1,5 +1,6 @@
 package com.mylabs.myfuel.api.resource;
 
+import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.service.UserService;
 import com.mylabs.myfuel.builds.UserBuild;

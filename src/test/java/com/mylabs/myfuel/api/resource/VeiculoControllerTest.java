@@ -1,6 +1,9 @@
 package com.mylabs.myfuel.api.resource;
 
 import com.mylabs.myfuel.builds.VeiculoBuild;
+import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
+import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
+import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.junit.jupiter.api.DisplayName;
@@ -45,10 +48,10 @@ public class VeiculoControllerTest {
         // Cenário
         String json = VeiculoBuild.createJSONNewVeiculoInput();
 
-        Veiculo veiculo = VeiculoBuild.createNewVeiculo();
+        VeiculoModel veiculoModel = VeiculoBuild.createNewVeiculoModel();
 
-        BDDMockito.given(veiculoService.save(Mockito.any(Veiculo.class)))
-                .willReturn(veiculo);
+        BDDMockito.given(veiculoService.save(Mockito.any(VeiculoInput.class)))
+                .willReturn(veiculoModel);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post(VEICULO_URL)
