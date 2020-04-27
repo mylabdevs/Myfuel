@@ -1,7 +1,9 @@
 package com.mylabs.myfuel.domain.service;
 
-import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.dto.user.UserInput;
+import com.mylabs.myfuel.domain.dto.user.UserModel;
 
 public interface UserService {
-    User save(User user);
+
+    UserModel save(UserInput userInput);
 }

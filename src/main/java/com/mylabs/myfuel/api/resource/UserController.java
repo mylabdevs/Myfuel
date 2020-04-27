@@ -35,17 +35,8 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserModel> save(@RequestBody @Valid  UserInput userInput) {
 
-        User user = toEntity(userInput);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(toModel(service.save(user)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(userInput));
 
     }
 
-    private UserModel toModel(User user) {
-        return modelMapper.map(user, UserModel.class);
-    }
-
-    private User toEntity(UserInput userInput) {
-        return modelMapper.map(userInput, User.class);
-    }
 }

@@ -1,6 +1,8 @@
 package com.mylabs.myfuel.api.resource;
 
 import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
+import com.mylabs.myfuel.domain.dto.user.UserInput;
+import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.service.UserService;
 import com.mylabs.myfuel.builds.UserBuild;
@@ -48,11 +50,11 @@ public class UsuarioControllerTest {
     public void createNewUsuario() throws Exception {
 
         // Cenário
-        User user = UserBuild.createNewUser();
+        UserModel userModel = UserBuild.createNewUserModel();
 
         String json = UserBuild.userDTOToJson();
 
-        BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(user);
+        BDDMockito.given(service.save(Mockito.any(UserInput.class))).willReturn(userModel);
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -65,9 +67,9 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("id").value(user.getId()))
-                .andExpect(jsonPath("name").value(user.getName()))
-                .andExpect(jsonPath("email").value(user.getEmail()))
+                .andExpect(jsonPath("id").value(userModel.getId()))
+                .andExpect(jsonPath("name").value(userModel.getName()))
+                .andExpect(jsonPath("email").value(userModel.getEmail()))
                 .andExpect(jsonPath("dataCadastro").value(getDateNow()));
     }
 
