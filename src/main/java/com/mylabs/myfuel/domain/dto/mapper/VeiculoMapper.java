@@ -5,13 +5,11 @@ import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor
 public class VeiculoMapper implements EntityMapper<VeiculoInput, VeiculoModel, Veiculo> {
 

@@ -4,6 +4,7 @@ import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
+import com.mylabs.myfuel.domain.exception.EntidadeNaoEncontradaException;
 import com.mylabs.myfuel.domain.service.VeiculoService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +60,7 @@ public class VeiculoController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long veiculoId) {
         Veiculo veiculo = veiculoService.findById(veiculoId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Não encontrado na base de dados"));
         veiculoService.delete(veiculo);
     }
 }

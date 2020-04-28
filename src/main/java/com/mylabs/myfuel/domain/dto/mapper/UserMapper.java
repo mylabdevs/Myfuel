@@ -5,13 +5,11 @@ import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor
 public class UserMapper implements EntityMapper<UserInput, UserModel, User> {
 
