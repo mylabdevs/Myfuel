@@ -1,12 +1,15 @@
 package com.mylabs.myfuel.domain.service;
 
+import com.mylabs.myfuel.builds.VeiculoBuild;
 import com.mylabs.myfuel.domain.dto.mapper.UserMapper;
 import com.mylabs.myfuel.domain.dto.user.UserInput;
 import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.repository.UserRepository;
 import com.mylabs.myfuel.infraestrutura.service.CrudUserService;
 import com.mylabs.myfuel.builds.UserBuild;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,14 +29,11 @@ public class UserServiceTest {
     UserService service;
 
     @MockBean
-    UserMapper userMapper;
-
-    @MockBean
     UserRepository repository;
 
     @BeforeEach
     public void setup(){
-        this.service = new CrudUserService(repository, userMapper);
+        this.service = new CrudUserService(repository);
     }
 
     @Test
@@ -44,18 +44,12 @@ public class UserServiceTest {
         Mockito.when(repository.save(Mockito.any(User.class)))
                 .thenReturn(UserBuild.createUser());
 
-        Mockito.when(userMapper.inputToEntity(Mockito.any(UserInput.class)))
-                .thenReturn(UserBuild.createNewUser());
-
-        Mockito.when(userMapper.entityToModel(Mockito.any(User.class)))
-                .thenReturn(UserBuild.createNewUserModel());
-
         // Execução
-        UserModel saveUser = service.save(UserBuild.createNewUserInput());
+        User user = service.save(UserBuild.createNewUser());
 
         // Verificação
-        assertThat(saveUser.getId()).isNotNull();
-        assertThat(saveUser.getEmail()).isEqualTo("user@teste.com.br");
+        assertThat(user.getId()).isNotNull();
+        assertThat(user.getEmail()).isEqualTo("user@teste.com.br");
     }
 
 }

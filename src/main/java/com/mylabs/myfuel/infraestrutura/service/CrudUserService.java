@@ -17,26 +17,19 @@ public class CrudUserService implements UserService {
 
     private final UserRepository userRepository;
 
-    private final UserMapper userMapper;
-
-    public CrudUserService(UserRepository userRepository, UserMapper userMapper) {
+    public CrudUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
     @Override
-    public UserModel save(UserInput userInput) {
+    public User save(User user) {
 
-        if (userRepository.existsByEmail(userInput.getEmail())) {
-            throw new NegocioException("Já existe usuário cadastrado com este e-mail: " + userInput.getEmail());
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new NegocioException("Já existe usuário cadastrado com este e-mail: " + user.getEmail());
         }
-        User user = userMapper.inputToEntity(userInput);
-
         user.setDataCadastro(LocalDate.now());
         user.setRole(RoleEnum.ROLE_USER);
 
-        user = userRepository.save(user);
-
-        return userMapper.entityToModel(user);
+        return userRepository.save(user);
     }
 }

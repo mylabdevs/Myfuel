@@ -1,12 +1,8 @@
 package com.mylabs.myfuel.api.resource;
 
-import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
-import com.mylabs.myfuel.domain.dto.user.UserInput;
-import com.mylabs.myfuel.domain.dto.user.UserModel;
+import com.mylabs.myfuel.builds.UserBuild;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.service.UserService;
-import com.mylabs.myfuel.builds.UserBuild;
-import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -50,11 +45,11 @@ public class UsuarioControllerTest {
     public void createNewUsuario() throws Exception {
 
         // Cenário
-        UserModel userModel = UserBuild.createNewUserModel();
+        User user = UserBuild.createNewUser();
 
         String json = UserBuild.userDTOToJson();
 
-        BDDMockito.given(service.save(Mockito.any(UserInput.class))).willReturn(userModel);
+        BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(user);
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -67,9 +62,9 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("id").value(userModel.getId()))
-                .andExpect(jsonPath("name").value(userModel.getName()))
-                .andExpect(jsonPath("email").value(userModel.getEmail()))
+                .andExpect(jsonPath("id").value(user.getId()))
+                .andExpect(jsonPath("name").value(user.getName()))
+                .andExpect(jsonPath("email").value(user.getEmail()))
                 .andExpect(jsonPath("dataCadastro").value(getDateNow()));
     }
 

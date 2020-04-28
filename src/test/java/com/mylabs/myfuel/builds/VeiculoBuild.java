@@ -74,4 +74,15 @@ public class VeiculoBuild {
         return UserIdInput.builder().id(1l).build();
     }
 
+    public static VeiculoModel createUpdateVeiculoModel() {
+        return VeiculoModel.builder()
+                .id(1L)
+                .user(getUserResumoModel())
+                .ano(2008)
+                .capacidadeTanque(250.0)
+                .marca("VW")
+                .modelo("spacefox")
+                .km(125.0)
+                .build();
+    }
 }
