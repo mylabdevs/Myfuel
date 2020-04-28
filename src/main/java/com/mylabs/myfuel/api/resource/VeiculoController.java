@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -38,6 +39,18 @@ public class VeiculoController {
         if (veiculo.isPresent()) {
             return ResponseEntity.ok(veiculoMapper.toModel(veiculo.get()));
         }
+        return ResponseEntity.notFound().build();
+    }
+
+    @ApiOperation(value = "Buscar veiculo por ID do Usuario")
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<VeiculoModel>> findByUserId(@PathVariable Long userId) {
+        List<Veiculo> veiculos = veiculoService.findByUserId(userId);
+
+        if (!veiculos.isEmpty()) {
+            return ResponseEntity.ok(veiculoMapper.toModel(veiculos));
+        }
+
         return ResponseEntity.notFound().build();
     }
 

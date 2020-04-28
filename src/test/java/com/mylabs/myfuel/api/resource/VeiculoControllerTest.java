@@ -25,12 +25,14 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static com.mylabs.myfuel.builds.VeiculoBuild.createNewVeiculo;
 import static com.mylabs.myfuel.builds.VeiculoBuild.createNewVeiculoModel;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -107,6 +109,28 @@ public class VeiculoControllerTest {
                 .andExpect(jsonPath("capacidadeTanque").value(createNewVeiculo().getCapacidadeTanque()))
                 .andExpect(jsonPath("ano").value(createNewVeiculo().getAno()));
 
+    }
+
+    @Test
+    @DisplayName("Deve buscar um veiculos por id usuario")
+    public void buscarVeiculoUserIdTest() throws Exception {
+
+        // Cenário
+        Long userId = 1l;
+
+        String json = VeiculoBuild.createJSONListVeiculoModel();
+
+        BDDMockito.given(veiculoService.findByUserId(Mockito.anyLong()))
+                .willReturn(Arrays.asList(createNewVeiculo()));
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(VEICULO_URL.concat("/user/" + userId))
+                .accept(MediaType.APPLICATION_JSON);
+
+        mvc
+                .perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(json)));
     }
 
     @Test

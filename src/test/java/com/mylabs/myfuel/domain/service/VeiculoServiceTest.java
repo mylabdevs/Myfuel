@@ -20,8 +20,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
+import static com.mylabs.myfuel.builds.VeiculoBuild.createNewVeiculo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -46,7 +49,7 @@ public class VeiculoServiceTest {
     public void createVeiculoTest() {
 
         // Cenário
-        Veiculo veiculo = VeiculoBuild.createNewVeiculo();
+        Veiculo veiculo = createNewVeiculo();
 
         BDDMockito.given(userRepository.findById(Mockito.anyLong()))
                 .willReturn(Optional.of(UserBuild.createNewUser()));
@@ -73,7 +76,7 @@ public class VeiculoServiceTest {
     public void deleteVeiculotest() {
 
         // Cenário
-        Veiculo veiculo = VeiculoBuild.createNewVeiculo();
+        Veiculo veiculo = createNewVeiculo();
 
         // Execuçãp
 
@@ -104,7 +107,7 @@ public class VeiculoServiceTest {
 
         // Cenário
         Long id = 1l;
-        Veiculo veiculo = VeiculoBuild.createNewVeiculo();
+        Veiculo veiculo = createNewVeiculo();
         veiculo.setId(id);
 
         Mockito.when(veiculoRepository.findById(id)).thenReturn(Optional.of(veiculo));
@@ -117,6 +120,27 @@ public class VeiculoServiceTest {
         assertThat(foundVeiculo.getMarca()).isEqualTo(veiculo.getMarca());
         assertThat(foundVeiculo.getModelo()).isEqualTo(veiculo.getModelo());
         assertThat(foundVeiculo.getKm()).isEqualTo(veiculo.getKm());
+
+    }
+
+    @Test
+    @DisplayName("Deve buscar Lista de veiculo por id do usuario")
+    public void findByUserIdVeiculoTest() {
+
+        // Cenário
+        Long userId = 1l;
+
+
+        Mockito.when(veiculoRepository.findByUserId(userId)).thenReturn(Arrays.asList(createNewVeiculo()));
+
+        // Execução
+        List<Veiculo> foundVeiculos = veiculoService.findByUserId(userId);
+
+        // Verificações
+        assertThat(foundVeiculos.isEmpty()).isFalse();
+        assertThat(foundVeiculos.size()).isEqualTo(1);
+        assertThat(foundVeiculos.get(0).getModelo()).isEqualTo(createNewVeiculo().getModelo());
+        assertThat(foundVeiculos.get(0).getMarca()).isEqualTo(createNewVeiculo().getMarca());
 
     }
 }
