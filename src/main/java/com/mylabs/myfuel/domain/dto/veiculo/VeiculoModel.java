@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -24,4 +26,8 @@ public class VeiculoModel {
     private Double capacidadeTanque;
 
     private Integer ano;
+
+    private String placa;
+
+    private String cor;
 }

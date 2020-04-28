@@ -37,6 +37,7 @@ public class VeiculoBuild {
                 .km(1000.0)
                 .ano(2008)
                 .capacidadeTanque(250.0)
+                .placa("AAA-9999")
                 .build();
     }
 
@@ -49,6 +50,8 @@ public class VeiculoBuild {
                 .marca("VW")
                 .modelo("spacefox")
                 .km(125.0)
+                .placa("AAA-9999")
+                .cor("#FFF")
                 .build();
     }
 
@@ -61,6 +64,8 @@ public class VeiculoBuild {
                 .marca("VW")
                 .modelo("spacefox")
                 .km(125.0)
+                .placa("AAA-9999")
+                .cor("#FFF")
                 .build();
     }
 
@@ -82,6 +87,7 @@ public class VeiculoBuild {
                 .marca("VW")
                 .modelo("spacefox")
                 .km(125.0)
+                .placa("AAA-9999")
                 .build();
     }
 
