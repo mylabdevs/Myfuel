@@ -1,8 +1,14 @@
 package com.mylabs.myfuel.domain.dto.mapper;
 
-public interface EntityMapper <E, I, M> {
+import java.util.List;
 
-    E inputToEntity(I input);
+public interface EntityMapper<Ï, M, E> {
 
-    M entityToModel(E entity);
+    E toEntity(Ï input);
+
+    M toModel(E entity);
+
+    List<E> toEntity(List<Ï> inputList);
+
+    List<M> toModel(List<E> entityList);
 }

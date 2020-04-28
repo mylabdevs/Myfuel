@@ -9,32 +9,54 @@ import com.mylabs.myfuel.domain.exception.NegocioException;
 import com.mylabs.myfuel.domain.repository.UserRepository;
 import com.mylabs.myfuel.domain.repository.VeiculoRepository;
 import com.mylabs.myfuel.domain.service.VeiculoService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CrudVeiculoService implements VeiculoService {
 
     private final VeiculoRepository veiculoRepository;
 
     private final UserRepository userRepository;
 
-    private final VeiculoMapper veiculoMapper;
+    @Override
+    public Veiculo save(Veiculo veiculo) {
 
-    public CrudVeiculoService(VeiculoRepository veiculoRepository, UserRepository userRepository, VeiculoMapper veiculoMapper) {
-        this.veiculoRepository = veiculoRepository;
-        this.userRepository = userRepository;
-        this.veiculoMapper = veiculoMapper;
+        User user = userRepository.findById(veiculo.getUser().getId())
+                .orElseThrow(() -> new NegocioException("Usuario não encontrado"));
+
+        veiculo.setUser(user);
+
+        return veiculoRepository.save(veiculo);
     }
 
     @Override
-    public VeiculoModel save(VeiculoInput veiculoInput) {
+    public Veiculo getById(Long veiculoId) {
+        return veiculoRepository.findById(veiculoId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 
-        User user = userRepository.findById(veiculoInput.getUser().getId())
-                .orElseThrow(() -> new NegocioException("Usuario não encontrado"));
+    @Override
+    public void delete(Veiculo veiculo) {
+        if (veiculo == null || veiculo.getId() == null) {
+            throw new IllegalArgumentException("Veiculo id cante be null.");
+        }
+        veiculoRepository.delete(veiculo);
+    }
 
-        Veiculo veiculo = veiculoMapper.inputToEntity(veiculoInput);
-        veiculo.setUser(user);
-        veiculo = veiculoRepository.save(veiculo);
-        return veiculoMapper.entityToModel(veiculo);
+    @Override
+    public Optional<Veiculo> findById(Long veiculoId) {
+        return veiculoRepository.findById(veiculoId);
+    }
+
+    @Override
+    public List<Veiculo> findByUserId(Long userId) {
+        return veiculoRepository.findByUserId(userId);
     }
 }

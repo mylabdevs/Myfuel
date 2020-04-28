@@ -1,5 +1,8 @@
 package com.mylabs.myfuel.infraestrutura.service;
 
+import com.mylabs.myfuel.domain.dto.mapper.UserMapper;
+import com.mylabs.myfuel.domain.dto.user.UserInput;
+import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.enuns.RoleEnum;
 import com.mylabs.myfuel.domain.exception.NegocioException;
@@ -21,13 +24,12 @@ public class CrudUserService implements UserService {
     @Override
     public User save(User user) {
 
-        User userExist = userRepository.findByEmail(user.getEmail());
-
-        if (userExist != null && !userExist.equals(user)) {
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new NegocioException("Já existe usuário cadastrado com este e-mail: " + user.getEmail());
         }
         user.setDataCadastro(LocalDate.now());
         user.setRole(RoleEnum.ROLE_USER);
+
         return userRepository.save(user);
     }
 }

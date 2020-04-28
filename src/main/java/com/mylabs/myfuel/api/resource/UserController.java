@@ -1,5 +1,6 @@
 package com.mylabs.myfuel.api.resource;
 
+import com.mylabs.myfuel.domain.dto.mapper.UserMapper;
 import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.dto.user.UserInput;
 import com.mylabs.myfuel.domain.entity.User;
@@ -24,28 +25,18 @@ public class UserController {
 
     private final UserService service;
 
-    private final ModelMapper modelMapper;
+    private final UserMapper userMapper;
 
-    public UserController(UserService service, ModelMapper modelMapper) {
+    public UserController(UserService service, UserMapper userMapper) {
         this.service = service;
-        this.modelMapper = modelMapper;
+        this.userMapper = userMapper;
     }
 
     @ApiOperation(value = "Salvar usuário")
     @PostMapping
     public ResponseEntity<UserModel> save(@RequestBody @Valid  UserInput userInput) {
-
-        User user = toEntity(userInput);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(toModel(service.save(user)));
-
+        User user = userMapper.toEntity(userInput);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toModel(service.save(user)));
     }
 
-    private UserModel toModel(User user) {
-        return modelMapper.map(user, UserModel.class);
-    }
-
-    private User toEntity(UserInput userInput) {
-        return modelMapper.map(userInput, User.class);
-    }
 }

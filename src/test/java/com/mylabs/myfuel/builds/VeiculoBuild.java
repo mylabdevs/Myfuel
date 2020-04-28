@@ -9,6 +9,8 @@ import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 
+import java.util.Arrays;
+
 public class VeiculoBuild {
 
     public static Veiculo getVeiculoSave() {
@@ -62,9 +64,6 @@ public class VeiculoBuild {
                 .build();
     }
 
-    public static String createJSONNewVeiculoInput() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(createNewVeiculoInput());
-    }
 
     public static UserResumoModel getUserResumoModel() {
         return UserResumoModel.builder().id(1L).name("userTeste").build();
@@ -74,4 +73,23 @@ public class VeiculoBuild {
         return UserIdInput.builder().id(1l).build();
     }
 
+    public static VeiculoModel createUpdateVeiculoModel() {
+        return VeiculoModel.builder()
+                .id(1L)
+                .user(getUserResumoModel())
+                .ano(2008)
+                .capacidadeTanque(250.0)
+                .marca("VW")
+                .modelo("spacefox")
+                .km(125.0)
+                .build();
+    }
+
+    public static String createJSONNewVeiculoInput() throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(createNewVeiculoInput());
+    }
+
+    public static String createJSONListVeiculoModel() throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(Arrays.asList(createNewVeiculoModel()));
+    }
 }

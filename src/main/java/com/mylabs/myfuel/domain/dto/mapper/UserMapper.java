@@ -1,8 +1,8 @@
 package com.mylabs.myfuel.domain.dto.mapper;
 
-import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
-import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
-import com.mylabs.myfuel.domain.entity.Veiculo;
+import com.mylabs.myfuel.domain.dto.user.UserInput;
+import com.mylabs.myfuel.domain.dto.user.UserModel;
+import com.mylabs.myfuel.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 
@@ -11,22 +11,22 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class VeiculoMapper implements EntityMapper<VeiculoInput, VeiculoModel, Veiculo> {
+public class UserMapper implements EntityMapper<UserInput, UserModel, User> {
 
     private final ModelMapper modelMapper;
 
     @Override
-    public Veiculo toEntity(VeiculoInput input) {
-        return modelMapper.map(input, Veiculo.class);
+    public User toEntity(UserInput input) {
+        return modelMapper.map(input, User.class);
     }
 
     @Override
-    public VeiculoModel toModel(Veiculo entity) {
-        return modelMapper.map(entity, VeiculoModel.class);
+    public UserModel toModel(User entity) {
+        return modelMapper.map(entity, UserModel.class);
     }
 
     @Override
-    public List<Veiculo> toEntity(List<VeiculoInput> inputList) {
+    public List<User> toEntity(List<UserInput> inputList) {
         return inputList.stream()
                 .filter(Objects::nonNull)
                 .map(this::toEntity)
@@ -34,7 +34,7 @@ public class VeiculoMapper implements EntityMapper<VeiculoInput, VeiculoModel, V
     }
 
     @Override
-    public List<VeiculoModel> toModel(List<Veiculo> entityList) {
+    public List<UserModel> toModel(List<User> entityList) {
         return entityList.stream()
                 .filter(Objects::nonNull)
                 .map(this::toModel)

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class UserBuild {
 
     public static UserModel createNewUserModel() {
-        return UserModel.builder().id(1l).email("user@teste.com.br").name("userTeste").id(1L).build();
+        return UserModel.builder().id(1l).email("user@teste.com.br").name("userTeste").id(1L).dataCadastro(LocalDate.now()).build();
     }
 
     public static UserInput createNewUserInput() {
