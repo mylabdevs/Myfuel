@@ -3,7 +3,6 @@ package com.mylabs.myfuel.api.resource;
 import com.mylabs.myfuel.builds.VeiculoBuild;
 import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
-import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,12 +25,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static com.mylabs.myfuel.builds.VeiculoBuild.createNewVeiculo;
 import static com.mylabs.myfuel.builds.VeiculoBuild.createNewVeiculoModel;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -43,13 +42,24 @@ public class VeiculoControllerTest {
 
     static String VEICULO_URL = "/veiculos";
 
-    VeiculoController veiculoController;
-
     @MockBean
     VeiculoService veiculoService;
 
+    @MockBean
+    VeiculoMapper veiculoMapper;
+
     @Autowired
     MockMvc mvc;
+
+    @BeforeEach
+    private void setup() {
+        BDDMockito.given(veiculoMapper.toEntity(Mockito.any(VeiculoInput.class)))
+                .willReturn(VeiculoBuild.createNewVeiculo());
+        BDDMockito.given(veiculoMapper.toModel(Mockito.any(Veiculo.class)))
+                .willReturn(VeiculoBuild.createNewVeiculoModel());
+        BDDMockito.given(veiculoMapper.toModels(Mockito.any(List.class)))
+                .willReturn(Arrays.asList(VeiculoBuild.createNewVeiculoModel()));
+    }
 
     @Test
     @DisplayName("Deve salvar veiculo")
