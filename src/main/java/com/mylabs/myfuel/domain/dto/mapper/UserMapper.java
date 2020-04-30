@@ -5,12 +5,14 @@ import com.mylabs.myfuel.domain.dto.user.UserModel;
 import com.mylabs.myfuel.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Service
 public class UserMapper implements EntityMapper<UserInput, UserModel, User> {
 
     private final ModelMapper modelMapper;
@@ -26,7 +28,7 @@ public class UserMapper implements EntityMapper<UserInput, UserModel, User> {
     }
 
     @Override
-    public List<User> toEntity(List<UserInput> inputList) {
+    public List<User> toEntits(List<UserInput> inputList) {
         return inputList.stream()
                 .filter(Objects::nonNull)
                 .map(this::toEntity)
@@ -34,7 +36,7 @@ public class UserMapper implements EntityMapper<UserInput, UserModel, User> {
     }
 
     @Override
-    public List<UserModel> toModel(List<User> entityList) {
+    public List<UserModel> toModels(List<User> entityList) {
         return entityList.stream()
                 .filter(Objects::nonNull)
                 .map(this::toModel)

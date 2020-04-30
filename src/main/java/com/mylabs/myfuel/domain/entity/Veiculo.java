@@ -41,4 +41,9 @@ public class Veiculo implements Serializable {
 
     private Integer ano;
 
+    @NotBlank
+    private String placa;
+
+    private String cor;
+
 }

@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -49,7 +48,7 @@ public class VeiculoController {
         List<Veiculo> veiculos = veiculoService.findByUserId(userId);
 
         if (!veiculos.isEmpty()) {
-            return ResponseEntity.ok(veiculoMapper.toModel(veiculos));
+            return ResponseEntity.ok(veiculoMapper.toModels(veiculos));
         }
 
         return ResponseEntity.notFound().build();

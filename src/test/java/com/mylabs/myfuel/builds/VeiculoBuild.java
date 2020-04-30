@@ -2,6 +2,7 @@ package com.mylabs.myfuel.builds;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mylabs.myfuel.domain.dto.abastecimento.VeiculoResumoModel;
 import com.mylabs.myfuel.domain.dto.veiculo.UserIdInput;
 import com.mylabs.myfuel.domain.dto.veiculo.UserResumoModel;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
@@ -37,6 +38,7 @@ public class VeiculoBuild {
                 .km(1000.0)
                 .ano(2008)
                 .capacidadeTanque(250.0)
+                .placa("AAA-9999")
                 .build();
     }
 
@@ -49,6 +51,8 @@ public class VeiculoBuild {
                 .marca("VW")
                 .modelo("spacefox")
                 .km(125.0)
+                .placa("AAA-9999")
+                .cor("#FFF")
                 .build();
     }
 
@@ -61,6 +65,8 @@ public class VeiculoBuild {
                 .marca("VW")
                 .modelo("spacefox")
                 .km(125.0)
+                .placa("AAA-9999")
+                .cor("#FFF")
                 .build();
     }
 
@@ -82,6 +88,7 @@ public class VeiculoBuild {
                 .marca("VW")
                 .modelo("spacefox")
                 .km(125.0)
+                .placa("AAA-9999")
                 .build();
     }
 
@@ -91,5 +98,16 @@ public class VeiculoBuild {
 
     public static String createJSONListVeiculoModel() throws JsonProcessingException {
         return new ObjectMapper().writeValueAsString(Arrays.asList(createNewVeiculoModel()));
+    }
+
+    public static VeiculoResumoModel createNewVeiculoResumoModel() {
+        return VeiculoResumoModel.builder()
+                .cor("#FFF")
+                .id(1L)
+                .marca("VW")
+                .placa("AAA-9999")
+                .modelo("spacefox")
+                .user(VeiculoBuild.getUserResumoModel())
+                .build();
     }
 }

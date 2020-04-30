@@ -1,8 +1,11 @@
 package com.mylabs.myfuel.api.resource;
 
 import com.mylabs.myfuel.builds.UserBuild;
+import com.mylabs.myfuel.domain.dto.mapper.UserMapper;
+import com.mylabs.myfuel.domain.dto.user.UserInput;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +41,18 @@ public class UsuarioControllerTest {
     MockMvc mvc;
 
     @MockBean
-    UserService service;
+    UserService userService;
+
+    @MockBean
+    UserMapper userMapper;
+
+    @BeforeEach
+    private void setup() {
+        BDDMockito.given(userMapper.toEntity(Mockito.any(UserInput.class)))
+                .willReturn(UserBuild.createNewUser());
+        BDDMockito.given(userMapper.toModel(Mockito.any(User.class)))
+                .willReturn(UserBuild.createNewUserModel());
+    }
 
     @Test
     @DisplayName("Deve salvar usuario")
@@ -49,7 +63,7 @@ public class UsuarioControllerTest {
 
         String json = UserBuild.userDTOToJson();
 
-        BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(user);
+        BDDMockito.given(userService.save(Mockito.any(User.class))).willReturn(user);
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders

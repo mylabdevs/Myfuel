@@ -8,7 +8,7 @@ public interface EntityMapper<Ï, M, E> {
 
     M toModel(E entity);
 
-    List<E> toEntity(List<Ï> inputList);
+    List<E> toEntits(List<Ï> inputList);
 
-    List<M> toModel(List<E> entityList);
+    List<M> toModels(List<E> entityList);
 }

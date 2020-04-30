@@ -1,17 +1,16 @@
-package com.mylabs.myfuel.domain.dto.veiculo;
+package com.mylabs.myfuel.domain.dto.abastecimento;
 
+import com.mylabs.myfuel.domain.dto.veiculo.UserResumoModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VeiculoModel {
+public class VeiculoResumoModel {
 
     private Long id;
 
@@ -20,12 +19,6 @@ public class VeiculoModel {
     private String modelo;
 
     private String marca;
-
-    private Double km;
-
-    private Double capacidadeTanque;
-
-    private Integer ano;
 
     private String placa;
 

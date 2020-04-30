@@ -30,4 +30,9 @@ public class VeiculoInput {
     private Double capacidadeTanque;
 
     private Integer ano;
+
+    @NotBlank
+    private String placa;
+
+    private String cor;
 }

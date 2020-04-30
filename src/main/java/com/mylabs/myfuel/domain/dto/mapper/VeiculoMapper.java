@@ -5,12 +5,14 @@ import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Service
 public class VeiculoMapper implements EntityMapper<VeiculoInput, VeiculoModel, Veiculo> {
 
     private final ModelMapper modelMapper;
@@ -26,7 +28,7 @@ public class VeiculoMapper implements EntityMapper<VeiculoInput, VeiculoModel, V
     }
 
     @Override
-    public List<Veiculo> toEntity(List<VeiculoInput> inputList) {
+    public List<Veiculo> toEntits(List<VeiculoInput> inputList) {
         return inputList.stream()
                 .filter(Objects::nonNull)
                 .map(this::toEntity)
@@ -34,7 +36,7 @@ public class VeiculoMapper implements EntityMapper<VeiculoInput, VeiculoModel, V
     }
 
     @Override
-    public List<VeiculoModel> toModel(List<Veiculo> entityList) {
+    public List<VeiculoModel> toModels(List<Veiculo> entityList) {
         return entityList.stream()
                 .filter(Objects::nonNull)
                 .map(this::toModel)

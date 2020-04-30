@@ -68,6 +68,8 @@ public class VeiculoServiceTest {
         assertThat(veiculoResponse.getModelo()).isEqualTo(veiculo.getModelo());
         assertThat(veiculoResponse.getMarca()).isEqualTo(veiculo.getMarca());
         assertThat(veiculoResponse.getKm()).isEqualTo(veiculo.getKm());
+        assertThat(veiculoResponse.getPlaca()).isEqualTo(veiculo.getPlaca());
+        assertThat(veiculoResponse.getCor()).isEqualTo(veiculo.getCor());
 
     }
 
