@@ -8,18 +8,16 @@ import com.mylabs.myfuel.domain.service.AbastecimentoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Api(value = "Abastecimento Rotas", tags = {"abastecimento"})
+@CrossOrigin
 @RestController
-@RequestMapping("abastecimento")
+@RequestMapping("abastecimentos")
 @RequiredArgsConstructor
 public class AbastecimentoController {
 
@@ -29,10 +27,11 @@ public class AbastecimentoController {
 
     @ApiOperation(value = "Salvar Abastecimento")
     @PostMapping
-    public ResponseEntity<AbastecimentoModel> criar(@Valid @RequestBody AbastecimentoInput abastecimentoInput) {
-        Abastecimento abastecimento =abastecimentoMapper.toEntity(abastecimentoInput);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(abastecimentoMapper.toModel(abastecimentoService.save(abastecimento)));
+    @ResponseStatus(HttpStatus.CREATED)
+    public AbastecimentoModel criar(@Valid @RequestBody AbastecimentoInput abastecimentoInput) {
+        Abastecimento abastecimento = abastecimentoMapper.toEntity(abastecimentoInput);
+        abastecimento = abastecimentoService.save(abastecimento);
+        return abastecimentoMapper.toModel(abastecimento);
     }
 
 

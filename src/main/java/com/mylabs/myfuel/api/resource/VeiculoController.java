@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Api(value = "Veiculo Rotas", tags = {"veiculos"})
+@CrossOrigin
 @RestController
 @RequestMapping("veiculos")
 @RequiredArgsConstructor
