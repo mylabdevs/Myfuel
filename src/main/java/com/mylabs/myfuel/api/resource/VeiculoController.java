@@ -6,6 +6,7 @@ import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.exception.EntidadeNaoEncontradaException;
 import com.mylabs.myfuel.domain.service.VeiculoService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@Api(value = "Veiculo Rotas", tags = {"veiculos"})
 @RestController
 @RequestMapping("veiculos")
 @RequiredArgsConstructor
