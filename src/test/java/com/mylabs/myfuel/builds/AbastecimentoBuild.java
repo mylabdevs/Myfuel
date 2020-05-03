@@ -41,6 +41,17 @@ public class AbastecimentoBuild {
                 .veiculo(VeiculoBuild.createNewVeiculo())
                 .build();
     }
+    
+    public static Abastecimento createNewAbastecimentoSave() {
+    	return Abastecimento.builder()
+    			.data(LocalDate.now())
+    			.kmAtual(BigDecimal.valueOf(2536.63))
+    			.posto("Posto x")
+    			.precoCombustivel(BigDecimal.valueOf(3.99))
+    			.valor(BigDecimal.valueOf(40.0))
+    			.veiculo(VeiculoBuild.createNewVeiculo())
+    			.build();
+    }
 
     public static AbastecimentoModel createNewAbastecimentoModel() {
         return AbastecimentoModel.builder()
