@@ -46,6 +46,7 @@ public class ErrorResponse {
         this.titulo = titulo;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Campo {
         private String nome;
         private String mensagem;

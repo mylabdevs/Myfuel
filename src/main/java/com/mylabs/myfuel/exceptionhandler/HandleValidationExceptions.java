@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestControllerAdvice
@@ -70,10 +71,12 @@ public class HandleValidationExceptions extends ResponseEntityExceptionHandler {
     }
 
     private ErrorResponse getErrorResponse(NegocioException ex, HttpStatus status) {
+
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(status.value());
-        errorResponse.setTitulo(ex.getMessage());
+        errorResponse.setTitulo("Ocoreu inconsistente na entrada de dados.");
         errorResponse.setDataHora(OffsetDateTime.now());
+        errorResponse.setCampos(Arrays.asList(new ErrorResponse.Campo(null, ex.getMessage())));
 
         return errorResponse;
     }

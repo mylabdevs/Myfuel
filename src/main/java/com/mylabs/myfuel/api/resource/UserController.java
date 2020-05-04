@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Api(value = "User Rotas", tags = {"user"})
+@Api(value = "User Rotas", tags = {"users"})
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
