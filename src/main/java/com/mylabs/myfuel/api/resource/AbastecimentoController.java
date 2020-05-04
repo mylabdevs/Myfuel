@@ -4,22 +4,19 @@ import com.mylabs.myfuel.domain.dto.abastecimento.AbastecimentoInput;
 import com.mylabs.myfuel.domain.dto.abastecimento.AbastecimentoModel;
 import com.mylabs.myfuel.domain.dto.mapper.AbastecimentoMapper;
 import com.mylabs.myfuel.domain.entity.Abastecimento;
-import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.exception.EntidadeNaoEncontradaException;
 import com.mylabs.myfuel.domain.service.AbastecimentoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
-@Api(value = "Abastecimento Rotas", tags = {"abastecimento"})
+@Api(value = "Abastecimento Rotas", tags = {"abastecimentos"})
 @CrossOrigin
 @RestController
 @RequestMapping("abastecimentos")
