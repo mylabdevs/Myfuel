@@ -74,7 +74,7 @@ public class HandleValidationExceptions extends ResponseEntityExceptionHandler {
 
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(status.value());
-        errorResponse.setTitulo("Ocoreu inconsistente na entrada de dados.");
+        errorResponse.setTitulo("Ocoreu inconsistencia na entrada de dados.");
         errorResponse.setDataHora(OffsetDateTime.now());
         errorResponse.setCampos(Arrays.asList(new ErrorResponse.Campo(null, ex.getMessage())));
 
