@@ -3,9 +3,11 @@ package com.mylabs.myfuel.infraestrutura.service;
 import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
+import com.mylabs.myfuel.domain.entity.Abastecimento;
 import com.mylabs.myfuel.domain.entity.User;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.exception.NegocioException;
+import com.mylabs.myfuel.domain.repository.AbastecimentoRepository;
 import com.mylabs.myfuel.domain.repository.UserRepository;
 import com.mylabs.myfuel.domain.repository.VeiculoRepository;
 import com.mylabs.myfuel.domain.service.VeiculoService;
@@ -24,6 +26,8 @@ public class CrudVeiculoService implements VeiculoService {
     private final VeiculoRepository veiculoRepository;
 
     private final UserRepository userRepository;
+
+    private final AbastecimentoRepository abastecimentoRepository;
 
     @Override
     public Veiculo save(Veiculo veiculo) {
@@ -51,6 +55,13 @@ public class CrudVeiculoService implements VeiculoService {
         if (veiculo == null || veiculo.getId() == null) {
             throw new IllegalArgumentException("Veiculo id cante be null.");
         }
+
+        List<Abastecimento> listaAb = abastecimentoRepository.findAbastecimentosByVeiculoId(veiculo.getId());
+
+        if (!listaAb.isEmpty()) {
+            abastecimentoRepository.deleteAll(listaAb);
+        }
+
         veiculoRepository.delete(veiculo);
     }
 
