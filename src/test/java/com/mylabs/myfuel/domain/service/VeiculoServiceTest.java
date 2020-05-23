@@ -6,6 +6,7 @@ import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
+import com.mylabs.myfuel.domain.repository.AbastecimentoRepository;
 import com.mylabs.myfuel.domain.repository.UserRepository;
 import com.mylabs.myfuel.domain.repository.VeiculoRepository;
 import com.mylabs.myfuel.infraestrutura.service.CrudVeiculoService;
@@ -40,9 +41,12 @@ public class VeiculoServiceTest {
     @MockBean
     VeiculoRepository veiculoRepository;
 
+    @MockBean
+    AbastecimentoRepository abastecimentoRepository;
+
     @BeforeEach
     public void setup() {
-        this.veiculoService = new CrudVeiculoService(veiculoRepository, userRepository);
+        this.veiculoService = new CrudVeiculoService(veiculoRepository, userRepository, abastecimentoRepository);
     }
 
     @Test
