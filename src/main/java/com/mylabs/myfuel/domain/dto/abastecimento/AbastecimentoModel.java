@@ -31,5 +31,7 @@ public class AbastecimentoModel {
 
     private BigDecimal kmAtual;
 
+    private String tipoCombustivel;
+
     private VeiculoResumoModel veiculo;
 }

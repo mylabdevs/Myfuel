@@ -35,6 +35,9 @@ public class AbastecimentoInput {
     @NotNull
     private BigDecimal kmAtual;
 
+    @NotNull
+    private String tipoCombustivel;
+
     @Valid
     @NotNull
     private VeiculoIdInput veiculo;

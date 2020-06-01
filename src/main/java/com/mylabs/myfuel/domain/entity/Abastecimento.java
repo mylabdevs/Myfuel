@@ -41,6 +41,9 @@ public class Abastecimento implements Serializable {
     @Column(name = "km_atual")
     private BigDecimal kmAtual;
 
+    @Column(name = "tipo_combustivel")
+    private String tipoCombustivel;
+
     @ManyToOne
     private Veiculo veiculo;
 }
