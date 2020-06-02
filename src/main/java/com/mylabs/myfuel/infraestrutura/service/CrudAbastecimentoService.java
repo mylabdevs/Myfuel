@@ -4,6 +4,7 @@ import com.mylabs.myfuel.domain.entity.Abastecimento;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.exception.NegocioException;
 import com.mylabs.myfuel.domain.repository.AbastecimentoRepository;
+import com.mylabs.myfuel.domain.repository.projection.TotalDespesasMesDTO;
 import com.mylabs.myfuel.domain.service.AbastecimentoService;
 import com.mylabs.myfuel.domain.service.VeiculoService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,9 +57,17 @@ public class CrudAbastecimentoService implements AbastecimentoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Abastecimento> findAbastecimentosByVeiculoUserId(Long id, Pageable pageable) {
         return abastecimentoRepository.findAbastecimentosByVeiculoUserId(id, pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<TotalDespesasMesDTO> findSumMesByUser(Long idUser) {
+        int mes = LocalDate.now().getMonthValue();
+        return abastecimentoRepository.findSumMesByUser(idUser, mes);
+
+    }
 
 }

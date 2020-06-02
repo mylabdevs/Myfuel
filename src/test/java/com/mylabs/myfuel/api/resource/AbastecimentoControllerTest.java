@@ -1,10 +1,10 @@
 package com.mylabs.myfuel.api.resource;
 
 import com.mylabs.myfuel.builds.AbastecimentoBuild;
-import com.mylabs.myfuel.builds.VeiculoBuild;
+import com.mylabs.myfuel.domain.dto.abastecimento.AbastecimentoInput;
+import com.mylabs.myfuel.domain.dto.mapper.AbastecimentoMapper;
 import com.mylabs.myfuel.domain.entity.Abastecimento;
 import com.mylabs.myfuel.domain.service.AbastecimentoService;
-import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,16 +38,21 @@ public class AbastecimentoControllerTest {
     MockMvc mvc;
 
     @MockBean
-    private AbastecimentoService abastecimentoService;
+    AbastecimentoService abastecimentoService;
 
     @MockBean
-    private VeiculoService veiculoService;
+    AbastecimentoMapper abastecimentoMapper;
 
     @BeforeEach
-    void setUp() throws Exception {
+    private void setup() {
+        BDDMockito.given(abastecimentoMapper.toEntity(Mockito.any(AbastecimentoInput.class)))
+                .willReturn(AbastecimentoBuild.createNewAbastecimeto());
+        BDDMockito.given(abastecimentoMapper.toModel(Mockito.any(Abastecimento.class)))
+                .willReturn(AbastecimentoBuild.createNewAbastecimentoModel());
+
     }
 
-    //	@Test
+//    @Test
     @DisplayName("Deve salvar um abastecimento")
     public void createAbastecimentoTest() throws Exception {
 
@@ -57,17 +62,7 @@ public class AbastecimentoControllerTest {
         Abastecimento abastecimeto = AbastecimentoBuild.createNewAbastecimeto();
         Abastecimento abastecimentoSaved = AbastecimentoBuild.createNewAbastecimentoSave();
 
-//		BDDMockito.given(abastecimentoMapper.toEntity(AbastecimentoBuild.createNewAbatecimentoInput()))
-//				.willReturn(AbastecimentoBuild.createNewAbastecimeto());
-//
-//		BDDMockito.given(abastecimentoMapper.toModel(AbastecimentoBuild.createNewAbastecimeto()))
-//				.willReturn(AbastecimentoBuild.createNewAbastecimentoModel());
-
-
-        BDDMockito.given(veiculoService.findById(AbastecimentoBuild.createNewAbastecimentoSave().getId()))
-                .willReturn(Optional.of(VeiculoBuild.createNewVeiculo()));
-
-        BDDMockito.given(abastecimentoService.save(AbastecimentoBuild.createNewAbastecimentoSave()))
+        BDDMockito.given(abastecimentoService.save(abastecimentoSaved))
                 .willReturn(abastecimeto);
 
 
