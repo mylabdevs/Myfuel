@@ -42,3 +42,9 @@ public class LibraryApiApplication extends SpringBootServletInitializer {
 * Execute o comando
 ```console
 mvnw clean package
+```
+
+## Gerar Key segurança do Heroku
+```
+heroku auth:token
+```
