@@ -4,6 +4,8 @@
 
 Projeto controle de combustivel
 
+_By MYDEVS_
+
 ## Executar os aplicação
 ```console
 mvnw spring-boot:run
