@@ -4,7 +4,6 @@ import com.mylabs.myfuel.domain.dto.abastecimento.AbastecimentoInput;
 import com.mylabs.myfuel.domain.dto.abastecimento.AbastecimentoModel;
 import com.mylabs.myfuel.domain.dto.mapper.AbastecimentoMapper;
 import com.mylabs.myfuel.domain.entity.Abastecimento;
-import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.exception.EntidadeNaoEncontradaException;
 import com.mylabs.myfuel.domain.repository.projection.TotalDespesasMesDTO;
 import com.mylabs.myfuel.domain.service.AbastecimentoService;
@@ -91,11 +90,8 @@ public class AbastecimentoController {
 
         List<TotalDespesasMesDTO> list = abastecimentoService.findSumMesByUser(idUser);
 
-        if (!list.isEmpty()) {
-            return ResponseEntity.ok(list);
-        }
+        return ResponseEntity.ok(list);
 
-        return ResponseEntity.notFound().build();
     }
 
 }
