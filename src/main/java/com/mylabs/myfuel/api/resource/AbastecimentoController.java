@@ -49,30 +49,22 @@ public class AbastecimentoController {
 
     @ApiOperation(value = "Obter detalhes abastecimento por veiculo")
     @GetMapping("/veiculo/{veiculoId}")
-    public Page<AbastecimentoModel> getAbastecimentoByVeiculo(@PathVariable Long veiculoId, Pageable pageable) {
+    public ResponseEntity<Page<AbastecimentoModel>> getAbastecimentoByVeiculo(@PathVariable Long veiculoId, Pageable pageable) {
 
         Page<AbastecimentoModel> page = abastecimentoService.findAbastecimentosByVeiculoId(veiculoId, pageable)
                 .map(abastecimentoMapper::toModel);
 
-        if (page.getContent().isEmpty()) {
-            throw new EntidadeNaoEncontradaException("Não foi encontrado nenhum abastecimento para o veiculo");
-        }
-
-        return page;
+        return ResponseEntity.ok(page);
     }
 
     @ApiOperation(value = "Obter detalhes abastecimento por usuario")
     @GetMapping("/user/{userId}")
-    public Page<AbastecimentoModel> getAbastecimentoByUser(@PathVariable Long userId, Pageable pageable) {
+    public ResponseEntity<Page<AbastecimentoModel>> getAbastecimentoByUser(@PathVariable Long userId, Pageable pageable) {
 
         Page<AbastecimentoModel> page = abastecimentoService.findAbastecimentosByVeiculoUserId(userId, pageable)
                 .map(abastecimentoMapper::toModel);
 
-        if (page.getContent().isEmpty()) {
-            throw new EntidadeNaoEncontradaException("Não foi encontrado nenhum abastecimento para o veiculo");
-        }
-
-        return page;
+        return ResponseEntity.ok(page);
     }
 
     @ApiOperation(value = "Deletar abastecimento")

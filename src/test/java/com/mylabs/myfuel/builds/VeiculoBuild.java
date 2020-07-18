@@ -107,7 +107,7 @@ public class VeiculoBuild {
                 .marca("VW")
                 .placa("AAA-9999")
                 .modelo("spacefox")
-                .user(VeiculoBuild.getUserResumoModel())
+                .usuario(VeiculoBuild.getUserResumoModel())
                 .build();
     }
 }
