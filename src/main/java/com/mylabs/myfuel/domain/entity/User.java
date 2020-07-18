@@ -26,6 +26,13 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 6018260411024315925L;
 
+    public User(User user) {
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.role = user.getRole();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @Api(value = "User Rotas", tags = {"users"})
 @CrossOrigin
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/public/users")
 public class UserController {
 
     private final UserService userService;
