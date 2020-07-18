@@ -7,7 +7,7 @@ import com.mylabs.myfuel.domain.dto.veiculo.UserIdInput;
 import com.mylabs.myfuel.domain.dto.veiculo.UserResumoModel;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
-import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class VeiculoBuild {
     public static Veiculo getVeiculoSave() {
         return Veiculo.builder()
                 .id(1l)
-                .user(User.builder().id(1l).build())
+                .usuario(Usuario.builder().id(1l).build())
                 .marca("Spacefox")
                 .modelo("VW")
                 .km(1000.0)
@@ -32,7 +32,7 @@ public class VeiculoBuild {
 
     public static VeiculoInput createNewVeiculoInput() {
         return VeiculoInput.builder()
-                .user(getUserInput())
+                .usuario(getUserInput())
                 .marca("Spacefox")
                 .modelo("VW")
                 .km(1000.0)
@@ -45,7 +45,7 @@ public class VeiculoBuild {
     public static VeiculoModel createNewVeiculoModel() {
         return VeiculoModel.builder()
                 .id(1L)
-                .user(getUserResumoModel())
+                .usuario(getUserResumoModel())
                 .ano(2008)
                 .capacidadeTanque(250.0)
                 .marca("VW")
@@ -59,7 +59,7 @@ public class VeiculoBuild {
     public static Veiculo createNewVeiculo() {
         return Veiculo.builder()
                 .id(1L)
-                .user(UserBuild.createUser())
+                .usuario(UserBuild.createUser())
                 .ano(2008)
                 .capacidadeTanque(250.0)
                 .marca("VW")
@@ -82,7 +82,7 @@ public class VeiculoBuild {
     public static VeiculoModel createUpdateVeiculoModel() {
         return VeiculoModel.builder()
                 .id(1L)
-                .user(getUserResumoModel())
+                .usuario(getUserResumoModel())
                 .ano(2008)
                 .capacidadeTanque(250.0)
                 .marca("VW")

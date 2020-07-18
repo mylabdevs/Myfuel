@@ -1,10 +1,7 @@
 package com.mylabs.myfuel.infraestrutura.service;
 
-import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
-import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
-import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Abastecimento;
-import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.exception.NegocioException;
 import com.mylabs.myfuel.domain.repository.AbastecimentoRepository;
@@ -32,14 +29,14 @@ public class CrudVeiculoService implements VeiculoService {
     @Override
     public Veiculo save(Veiculo veiculo) {
 
-        User user = userRepository.findById(veiculo.getUser().getId())
+        Usuario usuario = userRepository.findById(veiculo.getUsuario().getId())
                 .orElseThrow(() -> new NegocioException("Usuario não encontrado"));
 
         if (veiculoRepository.existsByPlaca(veiculo.getPlaca())) {
             throw new NegocioException("Já existe veiculo cadastrado com essa placa: " + veiculo.getPlaca());
         }
 
-        veiculo.setUser(user);
+        veiculo.setUsuario(usuario);
 
         return veiculoRepository.save(veiculo);
     }
@@ -72,6 +69,6 @@ public class CrudVeiculoService implements VeiculoService {
 
     @Override
     public List<Veiculo> findByUserId(Long userId) {
-        return veiculoRepository.findByUserId(userId);
+        return veiculoRepository.findByUsuarioId(userId);
     }
 }

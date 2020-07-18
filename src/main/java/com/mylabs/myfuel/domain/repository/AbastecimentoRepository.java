@@ -17,13 +17,13 @@ public interface AbastecimentoRepository extends JpaRepository<Abastecimento, Lo
 
     Page<Abastecimento> findAbastecimentosByVeiculoId(@Param("id") Long id, Pageable pageable);
 
-    Page<Abastecimento> findAbastecimentosByVeiculoUserId(@Param("id") Long id, Pageable pageable);
+    Page<Abastecimento> findAbastecimentosByVeiculoUsuarioId(@Param("id") Long id, Pageable pageable);
 
     List<Abastecimento> findAbastecimentosByVeiculoId(@Param("id") Long id);
 
     @Query("select v.id as idVeiculo, sum(a.valor) as valor " +
             "from Abastecimento a join a.veiculo v " +
-            "where v.user.id = :idUser and month(a.data) = :mes " +
+            "where v.usuario.id = :idUser and month(a.data) = :mes " +
             "group by v.id")
     List<TotalDespesasMesDTO> findSumMesByUser(@Param("idUser") Long idUser, @Param("mes") int mes);
 }

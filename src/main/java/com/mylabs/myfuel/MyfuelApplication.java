@@ -1,2 +1,1 @@
-ßÂbO/¢áÎD¥›İXÏÒ ïÂ`C/Šá>F…—rO-¢íÎl¥kßxÃŠo=bO#¢ÉÌ´§»Ñ˜åR_íÀlkzjI}·²-¬íêl}iv#4Êº¿ŸA†fyUşp ÀF—r,Béu%>Ş†Ç’wm3n«gûPàXAÑ„å^]ÅÌœ«Kû¸UaÿD˜	P7à°C¡‰Å4»G›‘Yg×Póâ(Lñª%üÜ
-È>°‡£Êd½[Ù ÖÂö7$²Û®ÙæÔVùö4x¹–iuw?2‚¯â LÁª…ÿH°- íÂlk/zãJE½M/®áæDU™ıTø ÀbO¢Ìd©[÷Ø0Ğ¢ãÎH¥³İ¨Íò¬/èàrA-†ínue
+package com.mylabs.myfuel;import org.springframework.boot.SpringApplication;import org.springframework.boot.autoconfigure.SpringBootApplication;@SpringBootApplicationpublic class MyfuelApplication {	public static void main(String[] args) {		SpringApplication.run(MyfuelApplication.class, args);	}}

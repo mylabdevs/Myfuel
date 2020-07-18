@@ -26,7 +26,7 @@ public class Veiculo implements Serializable {
 
     @NotNull
     @ManyToOne
-    private User user;
+    private Usuario usuario;
 
     @NotBlank
     private String modelo;

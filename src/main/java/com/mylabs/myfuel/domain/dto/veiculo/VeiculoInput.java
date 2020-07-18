@@ -17,7 +17,7 @@ public class VeiculoInput {
 
     @Valid
     @NotNull
-    private UserIdInput user;
+    private UserIdInput usuario;
 
     @NotBlank
     private String modelo;

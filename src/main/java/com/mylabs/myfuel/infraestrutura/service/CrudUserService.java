@@ -1,13 +1,12 @@
 package com.mylabs.myfuel.infraestrutura.service;
 
-import com.mylabs.myfuel.domain.dto.mapper.UserMapper;
-import com.mylabs.myfuel.domain.dto.user.UserInput;
-import com.mylabs.myfuel.domain.dto.user.UserModel;
-import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.enuns.RoleEnum;
 import com.mylabs.myfuel.domain.exception.NegocioException;
 import com.mylabs.myfuel.domain.repository.UserRepository;
 import com.mylabs.myfuel.domain.service.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,14 +21,15 @@ public class CrudUserService implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public Usuario save(Usuario usuario) {
 
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new NegocioException("Já existe usuário cadastrado com este e-mail: " + user.getEmail());
+        if (userRepository.existsByEmail(usuario.getEmail())) {
+            throw new NegocioException("Já existe usuário cadastrado com este e-mail: " + usuario.getEmail());
         }
-        user.setDataCadastro(LocalDate.now());
-        user.setRole(RoleEnum.ROLE_USER);
+        usuario.setDataCadastro(LocalDate.now());
+        usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
+        usuario.setRole(RoleEnum.ROLE_USER);
 
-        return userRepository.save(user);
+        return userRepository.save(usuario);
     }
 }

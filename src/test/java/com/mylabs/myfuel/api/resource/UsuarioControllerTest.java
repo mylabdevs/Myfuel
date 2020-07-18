@@ -3,7 +3,7 @@ package com.mylabs.myfuel.api.resource;
 import com.mylabs.myfuel.builds.UserBuild;
 import com.mylabs.myfuel.domain.dto.mapper.UserMapper;
 import com.mylabs.myfuel.domain.dto.user.UserInput;
-import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,7 +50,7 @@ public class UsuarioControllerTest {
     private void setup() {
         BDDMockito.given(userMapper.toEntity(Mockito.any(UserInput.class)))
                 .willReturn(UserBuild.createNewUser());
-        BDDMockito.given(userMapper.toModel(Mockito.any(User.class)))
+        BDDMockito.given(userMapper.toModel(Mockito.any(Usuario.class)))
                 .willReturn(UserBuild.createNewUserModel());
     }
 
@@ -59,11 +59,11 @@ public class UsuarioControllerTest {
     public void createNewUsuario() throws Exception {
 
         // Cenário
-        User user = UserBuild.createNewUser();
+        Usuario usuario = UserBuild.createNewUser();
 
         String json = UserBuild.userDTOToJson();
 
-        BDDMockito.given(userService.save(Mockito.any(User.class))).willReturn(user);
+        BDDMockito.given(userService.save(Mockito.any(Usuario.class))).willReturn(usuario);
 
         // Execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -76,9 +76,9 @@ public class UsuarioControllerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("id").value(user.getId()))
-                .andExpect(jsonPath("name").value(user.getName()))
-                .andExpect(jsonPath("email").value(user.getEmail()))
+                .andExpect(jsonPath("id").value(usuario.getId()))
+                .andExpect(jsonPath("name").value(usuario.getName()))
+                .andExpect(jsonPath("email").value(usuario.getEmail()))
                 .andExpect(jsonPath("dataCadastro").value(getDateNow()));
     }
 
