@@ -1,7 +1,7 @@
 CREATE TABLE veiculo
 (
     id         SERIAL      NOT NULL,
-    user_id    BIGINT      NOT NULL,
+    usuario_id    BIGINT      NOT NULL,
     modelo     VARCHAR(60) NOT NULL,
     marca      VARCHAR(60) NOT NULL,
     km         NUMERIC(10, 2),
@@ -12,5 +12,5 @@ CREATE TABLE veiculo
 );
 
 ALTER TABLE veiculo
-    ADD CONSTRAINT fk_veiculo_users
-        FOREIGN KEY (user_id) REFERENCES users (id);
+    ADD CONSTRAINT fk_veiculo_usuarios
+        FOREIGN KEY (usuario_id) REFERENCES usuario (id);

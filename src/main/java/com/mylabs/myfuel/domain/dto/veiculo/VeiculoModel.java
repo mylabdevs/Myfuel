@@ -15,7 +15,7 @@ public class VeiculoModel {
 
     private Long id;
 
-    private UserResumoModel user;
+    private UserResumoModel usuario;
 
     private String modelo;
 

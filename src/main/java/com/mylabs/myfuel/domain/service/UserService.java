@@ -1,8 +1,8 @@
 package com.mylabs.myfuel.domain.service;
 
-import com.mylabs.myfuel.domain.entity.User;
+import com.mylabs.myfuel.domain.entity.Usuario;
 
 public interface UserService {
 
-    User save(User user);
+    Usuario save(Usuario usuario);
 }

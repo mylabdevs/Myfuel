@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,8 +20,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 6018260411024315925L;
 
@@ -35,7 +34,7 @@ public class User implements Serializable {
     private String name;
 
     @Column(nullable = false)
-    @Size(min = 6 , max = 12)
+    @Size(min = 6)
     private String password;
 
     @Column(nullable = false, unique = true)

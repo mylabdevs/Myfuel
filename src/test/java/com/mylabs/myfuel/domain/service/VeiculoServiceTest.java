@@ -1,10 +1,6 @@
 package com.mylabs.myfuel.domain.service;
 
 import com.mylabs.myfuel.builds.UserBuild;
-import com.mylabs.myfuel.builds.VeiculoBuild;
-import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
-import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
-import com.mylabs.myfuel.domain.dto.veiculo.VeiculoModel;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.repository.AbastecimentoRepository;
 import com.mylabs.myfuel.domain.repository.UserRepository;
@@ -68,7 +64,7 @@ public class VeiculoServiceTest {
 
         assertThat(veiculoResponse).isNotNull();
         assertThat(veiculoResponse.getId()).isEqualTo(veiculo.getId());
-        assertThat(veiculoResponse.getUser().getId()).isEqualTo(veiculo.getUser().getId());
+        assertThat(veiculoResponse.getUsuario().getId()).isEqualTo(veiculo.getUsuario().getId());
         assertThat(veiculoResponse.getModelo()).isEqualTo(veiculo.getModelo());
         assertThat(veiculoResponse.getMarca()).isEqualTo(veiculo.getMarca());
         assertThat(veiculoResponse.getKm()).isEqualTo(veiculo.getKm());
@@ -137,7 +133,7 @@ public class VeiculoServiceTest {
         Long userId = 1l;
 
 
-        Mockito.when(veiculoRepository.findByUserId(userId)).thenReturn(Arrays.asList(createNewVeiculo()));
+        Mockito.when(veiculoRepository.findByUsuarioId(userId)).thenReturn(Arrays.asList(createNewVeiculo()));
 
         // Execução
         List<Veiculo> foundVeiculos = veiculoService.findByUserId(userId);

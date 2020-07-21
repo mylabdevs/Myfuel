@@ -6,6 +6,7 @@ import com.mylabs.myfuel.domain.dto.mapper.AbastecimentoMapper;
 import com.mylabs.myfuel.domain.entity.Abastecimento;
 import com.mylabs.myfuel.domain.service.AbastecimentoService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @WebMvcTest(controllers = AbastecimentoController.class)
 @AutoConfigureMockMvc
+@Disabled
 public class AbastecimentoControllerTest {
 
     static String ABASTECIMENTO_URL = "/abastecimentos";

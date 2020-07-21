@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mylabs.myfuel.domain.dto.user.UserInput;
 import com.mylabs.myfuel.domain.dto.user.UserModel;
+import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.enuns.RoleEnum;
-import com.mylabs.myfuel.domain.entity.User;
 
 import java.time.LocalDate;
 
@@ -19,8 +19,8 @@ public class UserBuild {
         return UserInput.builder().email("userrrr@teste.com.br").password("123456").name("userTeste").build();
     }
 
-    public static User createUser() {
-        return User.builder().id(1L).email("user@teste.com.br").password("123456").name("userTeste").role(RoleEnum.ROLE_USER).build();
+    public static Usuario createUser() {
+        return Usuario.builder().id(1L).email("user@teste.com.br").password("123456").name("userTeste").role(RoleEnum.ROLE_USER).build();
     }
 
     public static String userDTOToJson() throws JsonProcessingException {
@@ -32,14 +32,14 @@ public class UserBuild {
     }
 
     public static String userDTOEmailInvalidJson() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(User.builder().email("userteste.com.br").password("123456").name("userTeste").build());
+        return new ObjectMapper().writeValueAsString(Usuario.builder().email("userteste.com.br").password("123456").name("userTeste").build());
     }
 
     public static String userDTOPasswordlInvalidJson() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(User.builder().email("user@teste.com.br").password("123").name("userTeste").build());
+        return new ObjectMapper().writeValueAsString(Usuario.builder().email("user@teste.com.br").password("123").name("userTeste").build());
     }
 
-    public static User createNewUser() {
-        return User.builder().id(1L).email("user@teste.com.br").name("userTeste").dataCadastro(LocalDate.now()).build();
+    public static Usuario createNewUser() {
+        return Usuario.builder().id(1L).email("user@teste.com.br").name("userTeste").dataCadastro(LocalDate.now()).build();
     }
 }

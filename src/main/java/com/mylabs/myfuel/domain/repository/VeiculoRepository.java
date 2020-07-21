@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
-    List<Veiculo> findByUserId(Long id);
+    List<Veiculo> findByUsuarioId(Long id);
 
     boolean existsByPlaca(String placa);
 }
