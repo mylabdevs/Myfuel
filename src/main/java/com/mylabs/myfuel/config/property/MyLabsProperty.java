@@ -13,6 +13,10 @@ public class MyLabsProperty {
         return originPermitida;
     }
 
+    public void setOriginPermitida(String originPermitida) {
+        this.originPermitida = originPermitida;
+    }
+
     public Seguranca getSeguranca() {
         return seguranca;
     }
