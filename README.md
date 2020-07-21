@@ -4,6 +4,8 @@
 
 Projeto controle de combustivel
 
+_By MYDEVS_
+
 ## Executar os aplicação
 ```console
 mvnw spring-boot:run
@@ -42,3 +44,9 @@ public class LibraryApiApplication extends SpringBootServletInitializer {
 * Execute o comando
 ```console
 mvnw clean package
+```
+
+## Gerar Key segurança do Heroku
+```
+heroku auth:token
+```
