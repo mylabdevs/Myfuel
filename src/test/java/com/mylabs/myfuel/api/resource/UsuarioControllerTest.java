@@ -6,6 +6,7 @@ import com.mylabs.myfuel.domain.dto.user.UserInput;
 import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @WebMvcTest(controllers = UserController.class)
 @AutoConfigureMockMvc
+@Disabled
 public class UsuarioControllerTest {
 
     static String USER_URL = "/users";

@@ -6,6 +6,7 @@ import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @WebMvcTest(controllers = VeiculoController.class)
 @AutoConfigureMockMvc
+@Disabled
 public class VeiculoControllerTest {
 
     static String VEICULO_URL = "/veiculos";
