@@ -3,6 +3,7 @@ package com.mylabs.myfuel.security;
 import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+//@Profile("!test")
 public class ApiUserDetailsService implements UserDetailsService {
 
     @Autowired

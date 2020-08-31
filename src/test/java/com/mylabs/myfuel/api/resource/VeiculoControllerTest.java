@@ -5,24 +5,29 @@ import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
 import com.mylabs.myfuel.domain.entity.Veiculo;
 import com.mylabs.myfuel.domain.service.VeiculoService;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
@@ -37,9 +42,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest(controllers = VeiculoController.class)
+@SpringBootTest
 @AutoConfigureMockMvc
-@Disabled
+//@Disabled
 public class VeiculoControllerTest {
 
     static String VEICULO_URL = "/veiculos";
@@ -65,6 +70,7 @@ public class VeiculoControllerTest {
 
     @Test
     @DisplayName("Deve salvar veiculo")
+    @WithMockUser
     public void createVeiculoTest() throws Exception {
 
         // Cenário
@@ -77,6 +83,7 @@ public class VeiculoControllerTest {
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post(VEICULO_URL)
+                .header("Authorization", "Bearer " + obtainAccessToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -179,5 +186,31 @@ public class VeiculoControllerTest {
                 .perform(request)
                 .andExpect(status().isNotFound());
 
+    }
+
+    public String obtainAccessToken() throws Exception {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "password");
+        params.add("username", "teste");
+        params.add("password", "senha");
+        params.add("scope", "openid");
+
+        String base64 = new String(Base64.encodeBase64("user:password".getBytes()));
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post("/oauth/token")
+                .params(params)
+                .header("Authorization", "Basic dXNlcjpwYXNzd29yZA==")
+                .accept("*/*");
+
+        ResultActions result = mvc
+                .perform(request)
+                .andExpect(status().isOk());
+
+        String content = result.andReturn().getResponse().getContentAsString();
+
+        JacksonJsonParser parser = new JacksonJsonParser();
+
+        return parser.parseMap(content).get("access_token").toString();
     }
 }
