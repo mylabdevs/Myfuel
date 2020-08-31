@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import java.util.Arrays;
 
-//@Profile("dev")
+//@Profile("!test")
 @Configuration
 public class AuthorizathionServerConfiguration extends AuthorizationServerConfigurerAdapter {
 

@@ -12,19 +12,25 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 
-//@Profile("dev")
+//@Profile("test")
 @Configuration
 public class ResourceServiceConfiguration extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/users/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
+        http
+                .httpBasic().disable()
+                .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .csrf().disable();
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST,"/users/**").permitAll()
+                .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
+                        "/swagger-ui.html", "/webjars/**", "/swagger-resources/configuration/ui", "/swagger-ui.html",
+                        "/swagger-resources/configuration/security").permitAll()
+
+                .anyRequest().authenticated();
+
     }
 
     @Override
