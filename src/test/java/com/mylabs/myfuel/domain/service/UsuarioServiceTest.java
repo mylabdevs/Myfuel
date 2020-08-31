@@ -33,7 +33,6 @@ public class UsuarioServiceTest {
 
     @Test
     @DisplayName("Deve salvar um usuario")
-    @Disabled
     public void saveUsertest(){
 
         // Cenário

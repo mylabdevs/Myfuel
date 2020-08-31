@@ -3,9 +3,13 @@ package com.mylabs.myfuel.api.resource;
 import com.mylabs.myfuel.builds.VeiculoBuild;
 import com.mylabs.myfuel.domain.dto.mapper.VeiculoMapper;
 import com.mylabs.myfuel.domain.dto.veiculo.VeiculoInput;
+import com.mylabs.myfuel.domain.entity.Usuario;
 import com.mylabs.myfuel.domain.entity.Veiculo;
+import com.mylabs.myfuel.domain.enuns.RoleEnum;
+import com.mylabs.myfuel.domain.repository.UserRepository;
 import com.mylabs.myfuel.domain.service.VeiculoService;
 import org.apache.commons.codec.binary.Base64;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -30,6 +35,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +55,13 @@ public class VeiculoControllerTest {
 
     static String VEICULO_URL = "/veiculos";
 
+    private final String EMAIL = "teste@teste.com";
+    private final String NAME = "teste";
+    private final String PASSWORD = "123456";
+
+    @Autowired
+    private UserRepository userRepository;
+
     @MockBean
     VeiculoService veiculoService;
 
@@ -58,14 +71,32 @@ public class VeiculoControllerTest {
     @Autowired
     MockMvc mvc;
 
+    private Usuario usuario;
+
+    private String token = "";
+
     @BeforeEach
-    private void setup() {
+    public void setup() throws Exception {
         BDDMockito.given(veiculoMapper.toEntity(Mockito.any(VeiculoInput.class)))
                 .willReturn(VeiculoBuild.createNewVeiculo());
         BDDMockito.given(veiculoMapper.toModel(Mockito.any(Veiculo.class)))
                 .willReturn(VeiculoBuild.createNewVeiculoModel());
         BDDMockito.given(veiculoMapper.toModels(Mockito.any(List.class)))
                 .willReturn(Arrays.asList(VeiculoBuild.createNewVeiculoModel()));
+
+        usuario = userRepository.save(Usuario.builder()
+                .password(new BCryptPasswordEncoder().encode(PASSWORD))
+                .name(NAME)
+                .email(EMAIL)
+                .dataCadastro(LocalDate.now())
+                .role(RoleEnum.ROLE_USER)
+                .build());
+        token = this.obtainAccessToken();
+    }
+
+    @AfterEach
+    public void end() {
+        userRepository.deleteAll();
     }
 
     @Test
@@ -83,7 +114,7 @@ public class VeiculoControllerTest {
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post(VEICULO_URL)
-                .header("Authorization", "Bearer " + obtainAccessToken())
+                .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -92,8 +123,8 @@ public class VeiculoControllerTest {
                 .perform(request)
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").value(createNewVeiculoModel().getId()))
-                .andExpect(jsonPath("user.id").value(createNewVeiculoModel().getUsuario().getId()))
-                .andExpect(jsonPath("user.name").value(createNewVeiculoModel().getUsuario().getName()))
+                .andExpect(jsonPath("usuario.id").value(createNewVeiculoModel().getUsuario().getId()))
+                .andExpect(jsonPath("usuario.name").value(createNewVeiculoModel().getUsuario().getName()))
                 .andExpect(jsonPath("modelo").value(createNewVeiculoModel().getModelo()))
                 .andExpect(jsonPath("marca").value(createNewVeiculoModel().getMarca()))
                 .andExpect(jsonPath("km").value(createNewVeiculoModel().getKm()))
@@ -114,14 +145,15 @@ public class VeiculoControllerTest {
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get(VEICULO_URL.concat("/" + veiculoId))
+                .header("Authorization", "Bearer " + token)
                 .accept(MediaType.APPLICATION_JSON);
 
         mvc
                 .perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(veiculoId))
-                .andExpect(jsonPath("user.id").value(createNewVeiculo().getUsuario().getId()))
-                .andExpect(jsonPath("user.name").value(createNewVeiculo().getUsuario().getName()))
+                .andExpect(jsonPath("usuario.id").value(createNewVeiculo().getUsuario().getId()))
+                .andExpect(jsonPath("usuario.name").value(createNewVeiculo().getUsuario().getName()))
                 .andExpect(jsonPath("modelo").value(createNewVeiculo().getModelo()))
                 .andExpect(jsonPath("marca").value(createNewVeiculo().getMarca()))
                 .andExpect(jsonPath("km").value(createNewVeiculo().getKm()))
@@ -144,6 +176,7 @@ public class VeiculoControllerTest {
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get(VEICULO_URL.concat("/user/" + userId))
+                .header("Authorization", "Bearer " + token)
                 .accept(MediaType.APPLICATION_JSON);
 
         mvc
@@ -163,7 +196,8 @@ public class VeiculoControllerTest {
                 .willReturn(Optional.of(createNewVeiculo()));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .delete(VEICULO_URL.concat("/" + veiculoId));
+                .delete(VEICULO_URL.concat("/" + veiculoId))
+                .header("Authorization", "Bearer " + token);
 
         mvc
                 .perform(request)
@@ -180,7 +214,7 @@ public class VeiculoControllerTest {
                 .willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .delete(VEICULO_URL.concat("/" + 1));
+                .delete(VEICULO_URL.concat("/" + 1)).header("Authorization", "Bearer " + token);
 
         mvc
                 .perform(request)
@@ -191,16 +225,17 @@ public class VeiculoControllerTest {
     public String obtainAccessToken() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "password");
-        params.add("username", "teste");
-        params.add("password", "senha");
-        params.add("scope", "openid");
+        params.add("username", EMAIL);
+        params.add("password", PASSWORD);
+//        params.add("scope", "openid");
 
-        String base64 = new String(Base64.encodeBase64("user:password".getBytes()));
+//        String base64 = new String(Base64.encodeBase64("user:password".getBytes()));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post("/oauth/token")
                 .params(params)
-                .header("Authorization", "Basic dXNlcjpwYXNzd29yZA==")
+                .header("Authorization", "Basic ZGV2RnVlbFdlYjpASjk1bjRzNzVqaDUyQQ==")
+                .header("Content-Type", "application/x-www-form-urlencoded")
                 .accept("*/*");
 
         ResultActions result = mvc
