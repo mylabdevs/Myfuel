@@ -40,6 +40,6 @@ public class UserBuild {
     }
 
     public static Usuario createNewUser() {
-        return Usuario.builder().id(1L).email("user@teste.com.br").name("userTeste").dataCadastro(LocalDate.now()).build();
+        return Usuario.builder().id(1L).email("user@teste.com.br").password("123456").name("userTeste").dataCadastro(LocalDate.now()).build();
     }
 }
