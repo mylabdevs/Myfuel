@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/mylabdevs/Myfuel.svg?branch=master)](https://travis-ci.org/mylabdevs/Myfuel)
 
+[![.github/workflows/branches.yml](https://github.com/mylabdevs/Myfuel/actions/workflows/branches.yml/badge.svg)](https://github.com/mylabdevs/Myfuel/actions/workflows/branches.yml)
+
 # Myfuel
 
 Projeto controle de combustivel
